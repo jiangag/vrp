@@ -11,8 +11,8 @@ def index():
     return {'message': 'Please tell me vehicle number and current postal code'}
 
 @app.get('/get_address')
-def get_address(current_postalCode: int):
-    return get_next_address(current_postalCode)
+def get_address(vehicle_num: int, current_postalCode: int):
+    return get_next_address(vehicle_num, current_postalCode)
 
 
 

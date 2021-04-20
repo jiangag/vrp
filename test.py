@@ -4,9 +4,12 @@ import requests
 # use any of these 6 digit postal code as input for below 'current_postalCode'
 # or use wrong postal code: 5502019
 
+input_data = {
+    'vehicle_num': 5,
+    'current_postalCode': 560324
+}
 
-current_postalCode = 560529
-response = requests.get('http://127.0.0.1:8000/get_address', params={"current_postalCode": current_postalCode})
+response = requests.get('http://127.0.0.1:8000/get_address', params=input_data)
 print(response.content)
 
 # if the input is 560324, then the output should be as below

@@ -4,8 +4,7 @@ from solver import run_solver
 
 """ Get vehicles routes & Get next address"""
 
-#def get_next_address(vehicle_num: int, current_postalCode: int):
-def get_next_address(current_postalCode: int):
+def get_next_address(vehicle_num: int, current_postalCode: int):
 
 # Get vehicles routes
 
@@ -30,13 +29,10 @@ def get_next_address(current_postalCode: int):
     try:
         location_num = df[df['POSTAL']==current_postalCode]['LOCATION_NUM'].values[0] #e.g. 61
     except:
-        message = 'You have given a wrong postal code'
+        message = 'You have given wrong vehicle number or postal code'
         return message
 
-    vehicle_num = [a for a, b in vehicles_routes.items() if location_num in b][0]
-
-    position = vehicles_routes[vehicle_num].index(location_num) #e.g. 3
-    
+    position = vehicles_routes[vehicle_num].index(location_num) #3
 
     if position == len(vehicles_routes[vehicle_num]) -1: #550201
         message = 'Current address is your last one, thank you'
@@ -51,5 +47,5 @@ def get_next_address(current_postalCode: int):
 
 # for testing purpose
 if __name__ == '__main__':
-    next_address = get_next_address(560529)
+    next_address = get_next_address(5,550201)
     print(next_address)
