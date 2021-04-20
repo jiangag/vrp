@@ -1,16 +1,19 @@
 from ortools.constraint_solver import routing_enums_pb2
 from ortools.constraint_solver import pywrapcp
+import json
 
 """Sovle Capacited Vehicles Routing Problem (CVRP)"""
 """Get the Vehicles Routes."""
 
 def get_vehicles_routes(data, manager, routing, solution):
     
-    """Prints solution on console."""
     total_distance = 0
     total_delivered = 0
     vehicles_routes = {}
-    open('vehicles_routes.txt', 'w').close()
+    
+    open('vehicles_routes_json.txt', 'w').close()
+    open('vehicles_routes_details.txt', 'w').close()
+
     for vehicle_id in range(data['num_vehicles']):
         index = routing.Start(vehicle_id) #26,88, 89...95
         plan_output = 'Route for vehicle {}:\n'.format(vehicle_id)
@@ -34,7 +37,7 @@ def get_vehicles_routes(data, manager, routing, solution):
         plan_output += 'Delivery of the route: {}\n'.format(route_delivery)
 
         #print(plan_output)
-        with open('vehicles_routes.txt',"a") as f:
+        with open('vehicles_routes_details.txt',"a") as f:
             f.write(plan_output)
 
         total_distance += route_distance
@@ -43,13 +46,17 @@ def get_vehicles_routes(data, manager, routing, solution):
 
     # print('Total distance of all routes: {}km'.format(total_distance))
     # print('Total parcels delivered of all routes: {}'.format(total_delivered))
-    with open('vehicles_routes.txt',"a") as f:
+    with open('vehicles_routes_details.txt',"a") as f:
         f.write("\n")
         f.write('Total_distance in km: ')
         f.write(str(total_distance))
         f.write("\n")
         f.write('Total number of parcels delivered: ')
         f.write(str(total_delivered))
+
+    with open('vehicles_routes_json.txt',"a") as f:
+        json.dump(vehicles_routes, f)
+
 
     return vehicles_routes
 
